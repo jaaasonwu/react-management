@@ -1,0 +1,19 @@
+import App from "../App.tsx"
+import Home from "@/views/Home.tsx"
+import About from "@/views/About.tsx"
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+
+const baseRouter = () => (
+    <BrowserRouter>
+        <Routes>
+            <Route path={"/"} element={<App/>}>
+                /* Redirect to /home when visiting / */
+                <Route path={"/"} element={<Navigate to={"/home"}/>}></Route>
+                <Route path={"/home"} element={<Home/>}></Route>
+                <Route path={"/about"} element={<About/>}></Route>
+            </Route>
+        </Routes>
+    </BrowserRouter>
+)
+
+export default baseRouter;
