@@ -3,7 +3,12 @@
 // import {useState} from "react";
 // import {Button, Tour} from "antd";
 // import {WechatOutlined} from "@ant-design/icons";
+
+// component method:
 import { Outlet, Link } from "react-router-dom";
+// Array method:
+// import { useRoutes, Link } from "react-router-dom";
+// import router from "@/router/index_component.tsx";
 
 function App() {
     console.log("Test");
@@ -16,20 +21,21 @@ function App() {
     //
     // };
 
+    // array method:
+    // const outlet = useRoutes(router);
+
 
     return (
         <>
             <div className={"App"}>
                 <Link to={"/home"}>Home</Link> |
                 <Link to={"/about"}>About</Link>
+                {/* component method: */}
                 <Outlet/>
+                {/* array method: */}
+                {/*{outlet}*/}
             </div>
-            {/*<div>*/}
-            {/*    <Button type={"primary"} onClick={buttonHandler}>{count}</Button>*/}
-            {/*</div>*/}
-            {/*<div>*/}
-            {/*    <WechatOutlined style={{fontSize: "40px"}}/>*/}
-            {/*</div>*/}
+
         </>
     )
 }
