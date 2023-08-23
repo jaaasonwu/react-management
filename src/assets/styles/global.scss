@@ -1,11 +1,16 @@
-$color: #567;
+$color: #fff;
+
+
 body {
   background-color: $color;
-  // 禁止选中文字
-  user-select: none;
 }
 
-img {
-  // 禁止拖动图片
-  -webkit-user-drag: none;
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout-background {
+  background: #ffffff;
 }
