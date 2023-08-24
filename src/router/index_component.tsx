@@ -5,6 +5,7 @@ import React, {lazy} from "react";
 
 const Page1 = lazy(() => import("../views/Page1.tsx"));
 const Page2 = lazy(() => import("../views/Page2.tsx"));
+const Tom = lazy(() => import("../views/Tom.tsx"));
 
 const lazyLoadingComponent = (comp: JSX.Element) => (
     <React.Suspense fallback={<div>Loading...</div>}>
@@ -24,7 +25,10 @@ const baseRouter = () => (
             <Route path={"/"} element={<Home/>}>
                 <Route path={"/page1"} element={lazyLoadingComponent(<Page1/>)}></Route>
                 <Route path={"/page2"} element={lazyLoadingComponent(<Page2/>)}></Route>
+                <Route path={"/user/Tom"} element={lazyLoadingComponent(<Tom/>)}></Route>
             </Route>
+            // Navigate to home page when visiting non-existent path
+            <Route path={"*"} element={<Navigate to={"/page1"}/>}></Route>
         </Routes>
     </BrowserRouter>
 )
