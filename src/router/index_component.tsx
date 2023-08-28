@@ -16,7 +16,7 @@ const lazyLoadingComponent = (comp: JSX.Element) => (
 const baseRouter = () => (
     <BrowserRouter>
         <Routes>
-            <Route path={"/"} element={<Navigate to={"/page1"}/>}>
+            <Route path={"/"} element={<Navigate to={"/login"}/>}>
                 /* Redirect to /home when visiting / */
             {/*    /!*<Route path={"/"} element={<Navigate to={"/home"}/>}></Route>*!/*/}
             {/*    <Route path={"/home"} element={<Home/>}></Route>*/}

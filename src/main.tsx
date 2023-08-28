@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './App.tsx'
 
@@ -13,13 +12,17 @@ import Router from "./router/index_component.tsx"
 // Array method:
 // import { BrowserRouter } from "react-router-dom";
 
+// State management
+import {Provider} from "react-redux";
+import store from "@/store";
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <Provider store={store}>
       {/*component method:*/}
       <Router />
       {/*array method:*/}
       {/*<BrowserRouter>*/}
       {/*    <App/>*/}
       {/*</BrowserRouter>*/}
-  </React.StrictMode>,
+  </Provider>
 )
