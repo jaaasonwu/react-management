@@ -1,5 +1,6 @@
 // import App from "../App.tsx";
 import Home from "@/views/Home.tsx";
+import Login from "@/views/Login";
 import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import React, {lazy} from "react";
 
@@ -28,6 +29,7 @@ const baseRouter = () => (
                 <Route path={"/user/Tom"} element={lazyLoadingComponent(<Tom/>)}></Route>
             </Route>
             // Navigate to home page when visiting non-existent path
+            <Route path={"/login"} element={<Login/>}/>
             <Route path={"*"} element={<Navigate to={"/page1"}/>}></Route>
         </Routes>
     </BrowserRouter>
