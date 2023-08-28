@@ -1,6 +1,7 @@
+import handleNum from "./NumStatus"
 // To manage data
 const defaultState = {
-    num: 20
+    ...handleNum.state
 };
 
 const reducer = (state=defaultState, action: {type: string, value: number}) => {
@@ -10,10 +11,13 @@ const reducer = (state=defaultState, action: {type: string, value: number}) => {
 
     switch (action.type) {
         case "increaseBy1":
-            newState.num++;
+            handleNum.actions.increaseBy1(newState);
             break;
         case "increaseByOtherValue":
-            newState.num += action.value;
+            handleNum.actions.increaseByOtherValue(newState, action);
+            break;
+        default:
+            break;
     }
 
     return newState;
