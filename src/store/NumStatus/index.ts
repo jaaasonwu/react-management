@@ -7,16 +7,18 @@ const actions: { [key: string]: (newState: { num: number }, action: {type: strin
     },
     increaseByOtherValue: (newState: {num: number}, action: {type: string, value: number}) => {
         newState.num += action.value;
+    },
+    increase3: (newState: {num: number}, action: {type: string, value: number}) => {
+        newState.num += action.value;
     }
 }
+
 
 const handleNum =  {
     state: {
         num: 20
     },
-    actions: actions,
-    increaseBy1: "increaseBy1",
-    increaseByOtherValue: "increaseByOtherValue"
+    actions: actions
 }
 
 export default handleNum

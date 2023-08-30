@@ -10,7 +10,6 @@ const reducer = (state=defaultState, action: {type: string, value: number}) => {
     console.log("actions    ",handleNum.actions[action.type])
     const newState = JSON.parse(JSON.stringify(state));
 
-    handleNum.actions?.[action.type]?.(newState, action);
     // switch (action.type) {
     //     case handleNum.increaseBy1:
     //         handleNum.actions[handleNum.increaseBy1](newState, action);
@@ -21,6 +20,15 @@ const reducer = (state=defaultState, action: {type: string, value: number}) => {
     //     default:
     //         break;
     // }
+
+    // Use action.type to compare with every element in actionNames
+    // Avoid modifying this file every time an action is added
+    for (const key in handleNum.actions) {
+        if (action.type === key) {
+            handleNum.actions[action.type](newState, action);
+            break;
+        }
+    }
 
     return newState;
 }
