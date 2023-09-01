@@ -1,11 +1,13 @@
 import styles from "./login.module.scss";
 import initLoginBg from "./init.ts";
-import {ChangeEvent, useEffect, useState} from "react";
-import {Button, ConfigProvider, Input, Space} from "antd";
+import {ChangeEvent, useEffect, useState } from "react";
+import {useNavigate} from "react-router-dom";
+import {Button, ConfigProvider, Input, Space, message} from "antd";
 import "./login.less";
-import {CaptchaAPI} from "@/request/api.ts";
+import {CaptchaAPI, LoginAPI} from "@/request/api.ts";
 
 const LoginView = () => {
+    const navigateTo = useNavigate();
     // Load background after loading the component
     useEffect(() => {
         initLoginBg();
@@ -33,9 +35,38 @@ const LoginView = () => {
         setCaptcha(e.target.value);
     }
 
-    const onSubmitLogin = () => {
+    const onSubmitLogin = async () => {
         console.log(username, password, captcha);
+        if (!username.trim() || !password.trim() || !captcha.trim()) {
+            message.warning("Please fill in all the information! ")
+            return;
+        }
+
+        if (localStorage.getItem("uuid") === null) {
+            alert("UUID not found. ")
+            return;
+        }
+        const loginResp = await LoginAPI({
+            username: username,
+            password: password,
+            code: captcha,
+            uuid: localStorage.getItem("uuid") as string
+        })
+
+        if (loginResp.code === 200) {
+            // Show login success
+            message.success("Login successful! ");
+            // Store token
+            localStorage.setItem("management-token", loginResp.token);
+            // Navigate to home page
+            navigateTo("/page1");
+            // Delete uuid in localstorage
+            localStorage.removeItem("uuid");
+        } else {
+            message.error("Login failed! ")
+        }
     }
+
     const getCaptchaImg = async () => {
 
         const captchaAPIRes = await CaptchaAPI();
@@ -44,6 +75,7 @@ const LoginView = () => {
             // Show image on img
             setCaptchaImg("data:image/gif;base64," + captchaAPIRes.img)
             // Store UUID for login
+            localStorage.setItem("uuid", captchaAPIRes.uuid);
         }
     }
 
@@ -72,7 +104,8 @@ const LoginView = () => {
                     <div className={"form"}>
                         <Space direction={"vertical"} size={"middle"} style={{display: "flex"}}>
                             <Input placeholder={"Username"} onChange={onUsernameChange}/>
-                            <Input.Password placeholder={"Password"} className={"passwordInput"} onChange={onPasswordChange}/>
+                            <Input.Password placeholder={"Password"} className={"passwordInput"}
+                                            onChange={onPasswordChange}/>
                             <div className={"captchaBox"}>
                                 <Input placeholder={"CAPTCHA"} onChange={onCaptchaChange}/>
                                 <div className="captchaImg" onClick={getCaptchaImg}>
@@ -81,7 +114,7 @@ const LoginView = () => {
                                          alt=""/>
                                 </div>
                             </div>
-                            <Button type={"primary"}  block onClick={onSubmitLogin}>Login</Button>
+                            <Button type={"primary"} block onClick={onSubmitLogin}>Login</Button>
                         </Space>
                     </div>
                 </ConfigProvider>

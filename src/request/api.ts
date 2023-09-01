@@ -5,3 +5,5 @@ import request from "./index.ts"
 
 // Request for captcha
 export const CaptchaAPI = (): Promise<CaptchaResp> => request.get("/prod-api/captchaImage")
+
+export const LoginAPI = (params: LoginReq): Promise<LoginResp> => request.post("/prod-api/login", params)

@@ -8,3 +8,17 @@ interface CaptchaResp {
     captchaEnabled: boolean;
     uuid: string;
 }
+// Request type for login request
+interface LoginReq {
+    username: string;
+    password: string;
+    code: string;
+    uuid: string;
+}
+
+// Request type for login response
+interface LoginResp {
+    msg: string;
+    code: number;
+    token: string;
+}
